@@ -18,7 +18,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       // Navigator.push(
       //     context,
       //     MaterialPageRoute(

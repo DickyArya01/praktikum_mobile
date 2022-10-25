@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:praktikum_mobile/data/detailargs.dart';
 import 'package:praktikum_mobile/page/detail.dart';
+import 'package:praktikum_mobile/tabsbody/home.dart';
 
 import '../main.dart';
 
@@ -11,35 +12,34 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Home')),
+    return DefaultTabController(
+      length: 3,
+      initialIndex: 0,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Center(child: Text('Home')),
+          bottom: const TabBar(tabs: [
+            Tab(
+              icon: Icon(Icons.home),
+            ),
+            Tab(
+              icon: Icon(Icons.map),
+            ),
+            Tab(
+              icon: Icon(Icons.chat),
+            ),
+          ]),
+        ),
+        body: const TabBarView(children: [
+          const HomePage(),
+          const Center(
+            child: const Text('anjay 1'),
+          ),
+          const Center(
+            child: Text('anjay 2'),
+          ),
+        ]),
       ),
-      body: Container(
-          padding: const EdgeInsets.all(8),
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-                mainAxisExtent: MediaQuery.of(context).size.width * 0.4),
-            itemCount: listWisata.length,
-            itemBuilder: (context, index) {
-              return GestureDetector(
-                child: gridComponent(listWisata[index].namaWisata,
-                    listWisata[index].imgAssets, context),
-                onTap: () {
-                  Navigator.pushNamed(context, '/detail',
-                      arguments: DetailArgs(
-                          namaWisata: listWisata[index].namaWisata,
-                          imgAssets: listWisata[index].imgAssets,
-                          videoAssets: listWisata[index].videoAssets,
-                          lokasi: listWisata[index].lokasi,
-                          desc: listWisata[index].desc));
-                },
-              );
-            },
-          )),
     );
   }
 
@@ -51,42 +51,14 @@ class DashboardPage extends StatelessWidget {
           color: color,
         ),
         Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Text(
             namaWisata,
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         )
       ],
     );
   }
 
-  Stack gridComponent(String text, String asset, context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height,
-          child: Image.network(
-            asset,
-            fit: BoxFit.cover,
-          ),
-        ),
-        SizedBox(
-            width: MediaQuery.of(context).size.width,
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-            )),
-      ],
-    );
-  }
 }
